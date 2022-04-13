@@ -61,16 +61,25 @@ class BlogList extends StatefulWidget {
 class _BlogListState extends State<BlogList> {
   final _blogList = <BlogItem>[];
 
-  void getHttp() async {
+  void fetchArticleList() async {
     try {
       var response = await Dio().get(articleListUrl);
-      print(response);
+      final data = response.data;
+      final list = data['data'] as List;
+      final blogList = <BlogItem>[];
+      for (final item in list) {
+        final blogItem = BlogItem();
+        blogItem.id = item['id'];
+        blogItem.title = item['title'];
+        blogItem.introduce = item['introduce'];
+        blogItem.addTime = item['addTime'];
+        blogItem.view_count = item['view_count'];
+        blogItem.typeName = item['typeName'];
+        blogList.add(blogItem);
+      }
       setState(() {
         _blogList.clear();
-        _blogList.addAll(
-            response.data.map((e) => {
-              BlogItem()..id = e['id']..title = e['title']..introduce = e['introduce']..addTime = e['addTime']..view_count = e['view_count']..typeName = e['typeName']
-            }).toList());
+        _blogList.addAll(blogList);
       });
     } catch (e) {
       print(e);
@@ -79,7 +88,8 @@ class _BlogListState extends State<BlogList> {
 
   @override
   Widget build(BuildContext context) {
-    getHttp();
+    fetchArticleList();
+    print('blogList: ' + _blogList.toString());
     return Container(
       child: ListView.builder(
         itemCount: _blogList.length,
