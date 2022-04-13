@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:dio/dio.dart';
+import 'config/api_url.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,14 +16,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'MyBlog'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
-  
+
   final String title;
 
   @override
@@ -29,51 +31,66 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '测试',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
+      body: BlogList(),
     );
   }
 }
 
 class BlogItem {
-  
+  int? id;
   String? title;
-  String? desc;
+  String? introduce;
+  String? addTime;
+  int? view_count;
+  String? typeName;
 }
 
 class BlogList extends StatefulWidget {
-  BlogList({Key? key}) : super(key: key);
+  const BlogList({Key? key}) : super(key: key);
 
   @override
   State<BlogList> createState() => _BlogListState();
 }
 
 class _BlogListState extends State<BlogList> {
-
   final _blogList = <BlogItem>[];
+
+  void getHttp() async {
+    try {
+      var response = await Dio().get(articleListUrl);
+      print(response);
+      setState(() {
+        _blogList.clear();
+        _blogList.addAll(
+            response.data.map((e) => {
+              BlogItem()..id = e['id']..title = e['title']..introduce = e['introduce']..addTime = e['addTime']..view_count = e['view_count']..typeName = e['typeName']
+            }).toList());
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    getHttp();
+    return Container(
+      child: ListView.builder(
+        itemCount: _blogList.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text(_blogList[index].title ?? ''),
+            subtitle: Text(_blogList[index].introduce ?? ''),
+          );
+        },
+      ),
+      decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
+    );
   }
 }
