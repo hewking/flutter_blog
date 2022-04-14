@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'config/api_url.dart';
+// import 'config/icons.dart';
 
 void main() {
   runApp(const MyApp());
@@ -37,7 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: BlogList(),
+      body: const BlogList(),
     );
   }
 }
@@ -89,18 +90,62 @@ class _BlogListState extends State<BlogList> {
   @override
   Widget build(BuildContext context) {
     fetchArticleList();
-    print('blogList: ' + _blogList.toString());
     return Container(
       child: ListView.builder(
         itemCount: _blogList.length,
         itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(_blogList[index].title ?? ''),
-            subtitle: Text(_blogList[index].introduce ?? ''),
-          );
+          return _blogItem(_blogList[index]);
         },
       ),
       decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
+    );
+  }
+
+  Widget _blogItem(BlogItem item) {
+    return Container(
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              item.title ?? '',
+              style: const TextStyle(fontSize: 16, color: Colors.black),
+              textAlign: TextAlign.left,
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 4, 0, 0),
+              child: Text(
+                item.introduce ?? '',
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+                style: const TextStyle(fontSize: 12, color: Color(0xFF666666)),
+                textAlign: TextAlign.left,
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.fromLTRB(0, 4, 0, 4),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  TextButton.icon(
+                      onPressed: () {},
+                      icon: const Icon(Icons.accessible, color: Colors.grey),
+                      label: Text(
+                        item.typeName ?? '',
+                        style: const TextStyle(fontSize: 10),
+                      )),
+                  const Icon(Icons.error, color: Colors.grey),
+                  const Icon(Icons.fingerprint, color: Colors.grey),
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
+      decoration: const BoxDecoration(
+          border: Border(
+              bottom: BorderSide(color: Color.fromARGB(255, 214, 207, 207)))),
     );
   }
 }
