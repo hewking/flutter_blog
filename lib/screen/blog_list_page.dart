@@ -80,17 +80,21 @@ class _BlogListState extends State<BlogList> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TextButton.icon(
-                      onPressed: () {},
-                      icon: const Icon(Icons.accessible, color: Colors.grey),
+                  IconText.icon(
+                      icon: const Icon(Icons.category, color: Colors.grey),
                       label: Text(
                         item.typeName ?? '',
                         style: const TextStyle(fontSize: 10),
                       )),
-                  const Icon(Icons.error, color: Colors.grey),
+                  IconText.icon(
+                    icon: const Icon(Icons.remove_red_eye),
+                    label: Text(item.view_count.toString(),
+                        style: const TextStyle(fontSize: 10)),
+                  ),
                   IconText.icon(
                     icon: const Icon(Icons.access_time, color: Colors.grey),
-                    label: Text(item.addTime ?? '', style: const TextStyle(fontSize: 10)),
+                    label: Text(item.addTime ?? '',
+                        style: const TextStyle(fontSize: 10)),
                   ),
                 ],
               ),
