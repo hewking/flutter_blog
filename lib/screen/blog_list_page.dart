@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import '../entity/blot_item.dart';
+import '../entity/blog_item.dart';
 import '../config/api_url.dart';
 import 'package:dio/dio.dart';
 import '../widgets/icon_text.dart';
 
 class BlogList extends StatefulWidget {
-  const BlogList({Key? key}) : super(key: key);
+  const BlogList({Key? key, this.type}) : super(key: key);
+
+  final String? type;
 
   @override
   State<BlogList> createState() => _BlogListState();
