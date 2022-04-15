@@ -3,14 +3,26 @@ import 'package:flutter/material.dart';
 class IconText extends StatelessWidget {
   const IconText({
     Key? key,
-    required this.text,
-    Icon? icon,
+    required this.label,
+    this.icon,
   }) : super(key: key);
 
-  final String text;
+  final Text label;
+  final Icon? icon;
+
+  const factory IconText.icon({
+    Key? key,
+    required Text label,
+    Icon? icon,
+  }) = IconText;
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Row(
+      children: <Widget>[
+        if (icon != null) icon!,
+        label,
+      ],
+    );
   }
 }

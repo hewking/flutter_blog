@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../entity/blot_item.dart';
 import '../config/api_url.dart';
 import 'package:dio/dio.dart';
+import '../widgets/icon_text.dart';
 
 class BlogList extends StatefulWidget {
   const BlogList({Key? key}) : super(key: key);
@@ -75,7 +76,7 @@ class _BlogListState extends State<BlogList> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.fromLTRB(0, 4, 0, 4),
+              padding: const EdgeInsets.fromLTRB(0, 4, 0, 4),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -87,7 +88,10 @@ class _BlogListState extends State<BlogList> {
                         style: const TextStyle(fontSize: 10),
                       )),
                   const Icon(Icons.error, color: Colors.grey),
-                  const Icon(Icons.fingerprint, color: Colors.grey),
+                  IconText.icon(
+                    icon: const Icon(Icons.access_time, color: Colors.grey),
+                    label: Text(item.addTime ?? '', style: const TextStyle(fontSize: 10)),
+                  ),
                 ],
               ),
             )
