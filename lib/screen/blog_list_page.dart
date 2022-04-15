@@ -57,6 +57,9 @@ class _BlogListState extends State<BlogList> {
 
   Widget _blogItem(BlogItem item) {
     return Container(
+      // onTap: () {
+      //   Navigator.pushNamed(context, '/blog_detail', arguments: item);
+      // },
       child: Padding(
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
         child: Column(

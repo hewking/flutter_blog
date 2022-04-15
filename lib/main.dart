@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import './screen/blog_list_page.dart';
 import './config/api_url.dart';
 import './entity/type.dart';
+import 'screen/detail.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,6 +21,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const HomePage(title: 'MyBlog'),
+      routes: {
+        '/blog_detail': (context) => const Detail(),
+      },
     );
   }
 }
