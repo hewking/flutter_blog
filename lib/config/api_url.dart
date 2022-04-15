@@ -4,5 +4,6 @@ const articleListUrl = '$apiUrl/getAriticleList';
 
 const servicePath = {
   'articleListUrl': articleListUrl,
-  'getTypeInfo': '$apiUrl/getTypeInfo'
+  'getTypeInfo': '$apiUrl/getTypeInfo',
+  'getArticleById':'$apiUrl/getArticleById',
 };

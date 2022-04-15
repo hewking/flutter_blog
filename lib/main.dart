@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       ),
       home: const HomePage(title: 'MyBlog'),
       routes: {
-        '/blog_detail': (context) => const Detail(),
+        'blog_detail': (context) => const Detail(),
       },
     );
   }

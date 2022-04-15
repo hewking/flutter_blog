@@ -56,60 +56,66 @@ class _BlogListState extends State<BlogList> {
   }
 
   Widget _blogItem(BlogItem item) {
-    return Container(
-      // onTap: () {
-      //   Navigator.pushNamed(context, '/blog_detail', arguments: item);
-      // },
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              item.title ?? '',
-              style: const TextStyle(fontSize: 16, color: Colors.black),
-              textAlign: TextAlign.left,
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 4, 0, 0),
-              child: Text(
-                item.introduce ?? '',
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
-                style: const TextStyle(fontSize: 12, color: Color(0xFF666666)),
+    return GestureDetector(
+      child: Container(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                item.title ?? '',
+                style: const TextStyle(fontSize: 16, color: Colors.black),
                 textAlign: TextAlign.left,
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 4, 0, 4),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  IconText.icon(
-                      icon: const Icon(Icons.category, color: Colors.grey),
-                      label: Text(
-                        item.typeName ?? '',
-                        style: const TextStyle(fontSize: 10),
-                      )),
-                  IconText.icon(
-                    icon: const Icon(Icons.remove_red_eye),
-                    label: Text(item.view_count.toString(),
-                        style: const TextStyle(fontSize: 10)),
-                  ),
-                  IconText.icon(
-                    icon: const Icon(Icons.access_time, color: Colors.grey),
-                    label: Text(item.addTime ?? '',
-                        style: const TextStyle(fontSize: 10)),
-                  ),
-                ],
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 4, 0, 0),
+                child: Text(
+                  item.introduce ?? '',
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                  style:
+                      const TextStyle(fontSize: 12, color: Color(0xFF666666)),
+                  textAlign: TextAlign.left,
+                ),
               ),
-            )
-          ],
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 4, 0, 4),
+                child: _bottomMenu(item),
+              )
+            ],
+          ),
         ),
+        decoration: const BoxDecoration(
+            border: Border(
+                bottom: BorderSide(color: Color.fromARGB(255, 214, 207, 207)))),
       ),
-      decoration: const BoxDecoration(
-          border: Border(
-              bottom: BorderSide(color: Color.fromARGB(255, 214, 207, 207)))),
+      onTap: () {
+        Navigator.pushNamed(context, 'blog_detail', arguments: item);
+      },
+    );
+  }
+
+  Widget _bottomMenu(BlogItem item) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        IconText.icon(
+            icon: const Icon(Icons.category, color: Colors.grey),
+            label: Text(
+              item.typeName ?? '',
+              style: const TextStyle(fontSize: 10),
+            )),
+        IconText.icon(
+          icon: const Icon(Icons.remove_red_eye),
+          label: Text(item.view_count.toString(),
+              style: const TextStyle(fontSize: 10)),
+        ),
+        IconText.icon(
+          icon: const Icon(Icons.access_time, color: Colors.grey),
+          label: Text(item.addTime ?? '', style: const TextStyle(fontSize: 10)),
+        ),
+      ],
     );
   }
 }
