@@ -5,6 +5,7 @@ import './screen/blog_list_page.dart';
 import './config/api_url.dart';
 import './entity/type.dart';
 import 'screen/detail.dart';
+import './widgets/keep_alive_wrapper.dart';
 
 void main() {
   runApp(const MyApp());
@@ -37,8 +38,7 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>
-    with SingleTickerProviderStateMixin {
+class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   final List<Type> _tabs = <Type>[];
   late TabController _tabController;
 
@@ -67,7 +67,9 @@ class _HomePageState extends State<HomePage>
       ),
       body: TabBarView(
           children: _tabs.map((e) {
-            return BlogList(type: e.typeName == '首页'? null : e.typeName ?? '');
+            return KeepAliveWrapper(
+                child: BlogList(
+                    type: e));
           }).toList(),
           controller: _tabController),
     );
@@ -84,10 +86,12 @@ class _HomePageState extends State<HomePage>
           ..typeName = e['typeName']
           ..icon = e['icon'];
       }).toList();
-      typeList.insert(0, Type()..typeName = '首页');
+      typeList.insert(0, Type()..typeName = '首页'..id = -1);
       setState(() {
         _tabs.clear();
         _tabs.addAll(typeList);
+        _tabController = TabController(length: _tabs.length, vsync: this);
+        // _tabController.animateTo(0);
       });
     } catch (e) {
       if (kDebugMode) {

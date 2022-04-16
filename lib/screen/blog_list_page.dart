@@ -1,13 +1,15 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../entity/blog_item.dart';
 import '../config/api_url.dart';
 import 'package:dio/dio.dart';
 import '../widgets/icon_text.dart';
+import '../entity/type.dart';
 
 class BlogList extends StatefulWidget {
   const BlogList({Key? key, this.type}) : super(key: key);
 
-  final String? type;
+  final Type? type;
 
   @override
   State<BlogList> createState() => _BlogListState();
@@ -18,18 +20,22 @@ class _BlogListState extends State<BlogList> {
 
   void fetchArticleList() async {
     try {
-      var response = await Dio().get(articleListUrl);
+      final url = widget.type?.id == -1
+          ? servicePath['getAriticleList']
+          : '${servicePath['getListById'] ?? ''}/${widget.type?.id}';
+      var response =
+          await Dio().get(url ?? servicePath['getAriticleList'] ?? '');
       final data = response.data;
       final list = data['data'] as List;
       final blogList = <BlogItem>[];
       for (final item in list) {
-        final blogItem = BlogItem();
-        blogItem.id = item['id'];
-        blogItem.title = item['title'];
-        blogItem.introduce = item['introduce'];
-        blogItem.addTime = item['addTime'];
-        blogItem.view_count = item['view_count'];
-        blogItem.typeName = item['typeName'];
+        final blogItem = BlogItem()
+          ..id = item['id']
+          ..title = item['title']
+          ..introduce = item['introduce']
+          ..addTime = item['addTime']
+          ..view_count = item['view_count']
+          ..typeName = item['typeName'];
         blogList.add(blogItem);
       }
       setState(() {
@@ -37,7 +43,9 @@ class _BlogListState extends State<BlogList> {
         _blogList.addAll(blogList);
       });
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 

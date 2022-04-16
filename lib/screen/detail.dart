@@ -30,6 +30,6 @@ class _DetailState extends State<Detail> {
         appBar: AppBar(
           title: const Text('Detail'),
         ),
-        body: Container(child: Text('Detail')));
+        body: Center(child: Text('Detail')));
   }
 }
