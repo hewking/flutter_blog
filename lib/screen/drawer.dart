@@ -24,7 +24,8 @@ class MyDrawer extends StatelessWidget {
                     child: ClipOval(
                       child: Image(
                         // avatar
-                        image: NetworkImage('https://avatars.githubusercontent.com/u/8760577?v=4'),
+                        image: NetworkImage(
+                            'https://avatars.githubusercontent.com/u/8760577?v=4'),
                         width: 80,
                       ),
                     ),
@@ -38,14 +39,21 @@ class MyDrawer extends StatelessWidget {
             ),
             Expanded(
               child: ListView(
-                children: const <Widget>[
-                  ListTile(
+                children: <Widget>[
+                  const ListTile(
                     leading: Icon(Icons.add),
                     title: Text('Add account'),
                   ),
-                  ListTile(
+                  const ListTile(
                     leading: Icon(Icons.settings),
                     title: Text('Manage accounts'),
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.person),
+                    title: const Text('About'),
+                    onTap: () {
+                      _toAbout(context);
+                    },
                   ),
                 ],
               ),
@@ -54,5 +62,9 @@ class MyDrawer extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _toAbout(BuildContext context) {
+    Navigator.pushNamed(context, '/about');
   }
 }

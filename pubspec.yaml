@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   dio: ^4.0.6 # 网络请求
   flutter_markdown: 0.6.10
+  webview_flutter: ^3.0.2
 
 
 dev_dependencies:

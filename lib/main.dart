@@ -7,6 +7,8 @@ import './entity/type.dart';
 import 'screen/detail.dart';
 import './widgets/keep_alive_wrapper.dart';
 import 'screen/drawer.dart';
+import 'screen/about.dart';
+import 'screen/add_blog.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,12 +20,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Flutter Blog',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       home: const HomePage(title: 'MyBlog'),
       routes: {
+        '/about': (context) => const About(),
+        'add_blog': (context) => const AddBlog(),
         'blog_detail': (context) =>
             Detail(id: ModalRoute.of(context)?.settings.arguments as int),
       },
@@ -62,6 +66,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.add),
+            onPressed: () {
+              Navigator.pushNamed(context, 'add_blog');
+            },
+          ),
+        ],
         bottom: TabBar(
           indicatorSize: TabBarIndicatorSize.label,
           controller: _tabController,
