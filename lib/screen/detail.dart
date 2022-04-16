@@ -51,17 +51,26 @@ class _DetailState extends State<Detail> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('${_blogDetail?.title}'),
+          title: Text(_blogDetail?.title ?? ''),
         ),
         body: SafeArea(
             child: Markdown(
-                data: '${_blogDetail?.article_content}',
+                data: _blogDetail?.article_content ?? '',
                 extensionSet: md.ExtensionSet(
                   md.ExtensionSet.gitHubFlavored.blockSyntaxes,
                   [
                     md.EmojiSyntax(),
                     ...md.ExtensionSet.gitHubFlavored.inlineSyntaxes
                   ],
-                ))));
+                ))),
+        floatingActionButton: FloatingActionButton(
+          onPressed: _addMark,
+          child: const Icon(Icons.favorite),
+        ));
   }
+
+  void _addMark () {
+    print('addMark');
+  }
+
 }

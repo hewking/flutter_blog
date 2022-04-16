@@ -6,6 +6,7 @@ import './config/api_url.dart';
 import './entity/type.dart';
 import 'screen/detail.dart';
 import './widgets/keep_alive_wrapper.dart';
+import 'screen/drawer.dart';
 
 void main() {
   runApp(const MyApp());
@@ -78,6 +79,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             return KeepAliveWrapper(child: BlogList(type: e));
           }).toList(),
           controller: _tabController),
+      drawer: const MyDrawer(),
     );
   }
 
