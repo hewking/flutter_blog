@@ -23,7 +23,8 @@ class MyApp extends StatelessWidget {
       ),
       home: const HomePage(title: 'MyBlog'),
       routes: {
-        'blog_detail': (context) => const Detail(),
+        'blog_detail': (context) =>
+            Detail(id: ModalRoute.of(context)?.settings.arguments as int),
       },
     );
   }
@@ -46,6 +47,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     _tabController = TabController(length: _tabs.length, vsync: this);
+    fetchTypeList();
   }
 
   @override
@@ -56,7 +58,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    fetchTypeList();
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),

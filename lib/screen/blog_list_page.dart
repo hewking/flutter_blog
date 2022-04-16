@@ -18,6 +18,12 @@ class BlogList extends StatefulWidget {
 class _BlogListState extends State<BlogList> {
   final _blogList = <BlogItem>[];
 
+  @override
+  void initState() {
+    super.initState();
+    fetchArticleList();
+  }
+
   void fetchArticleList() async {
     try {
       final url = widget.type?.id == -1
@@ -51,7 +57,6 @@ class _BlogListState extends State<BlogList> {
 
   @override
   Widget build(BuildContext context) {
-    fetchArticleList();
     return Container(
       child: ListView.builder(
         itemCount: _blogList.length,
@@ -99,7 +104,7 @@ class _BlogListState extends State<BlogList> {
                 bottom: BorderSide(color: Color.fromARGB(255, 214, 207, 207)))),
       ),
       onTap: () {
-        Navigator.pushNamed(context, 'blog_detail', arguments: item);
+        Navigator.pushNamed(context, 'blog_detail', arguments: item.id);
       },
     );
   }
@@ -109,18 +114,20 @@ class _BlogListState extends State<BlogList> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         IconText.icon(
-            icon: const Icon(Icons.article_outlined, size : 18, color: Colors.grey),
+            icon: const Icon(Icons.article_outlined,
+                size: 18, color: Colors.grey),
             label: Text(
               item.typeName ?? '',
               style: const TextStyle(fontSize: 10),
             )),
         IconText.icon(
-          icon: const Icon(Icons.visibility_outlined, size : 18, color: Colors.grey),
+          icon: const Icon(Icons.visibility_outlined,
+              size: 18, color: Colors.grey),
           label: Text(item.view_count.toString(),
               style: const TextStyle(fontSize: 10)),
         ),
         IconText.icon(
-          icon: const Icon(Icons.access_time, size: 18,  color: Colors.grey),
+          icon: const Icon(Icons.access_time, size: 18, color: Colors.grey),
           label: Text(item.addTime ?? '', style: const TextStyle(fontSize: 10)),
         ),
       ],
