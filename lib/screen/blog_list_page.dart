@@ -109,18 +109,18 @@ class _BlogListState extends State<BlogList> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         IconText.icon(
-            icon: const Icon(Icons.category, color: Colors.grey),
+            icon: const Icon(Icons.article_outlined, size : 18, color: Colors.grey),
             label: Text(
               item.typeName ?? '',
               style: const TextStyle(fontSize: 10),
             )),
         IconText.icon(
-          icon: const Icon(Icons.remove_red_eye),
+          icon: const Icon(Icons.visibility_outlined, size : 18, color: Colors.grey),
           label: Text(item.view_count.toString(),
               style: const TextStyle(fontSize: 10)),
         ),
         IconText.icon(
-          icon: const Icon(Icons.access_time, color: Colors.grey),
+          icon: const Icon(Icons.access_time, size: 18,  color: Colors.grey),
           label: Text(item.addTime ?? '', style: const TextStyle(fontSize: 10)),
         ),
       ],

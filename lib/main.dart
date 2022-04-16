@@ -61,15 +61,20 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       appBar: AppBar(
         title: Text(widget.title),
         bottom: TabBar(
+          indicatorSize: TabBarIndicatorSize.label,
           controller: _tabController,
-          tabs: _tabs.map((e) => Text(e.typeName ?? '')).toList(),
+          tabs: _tabs
+              .map((e) => Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Text(e.typeName ?? '',
+                        style: const TextStyle(fontSize: 16)),
+                  ))
+              .toList(),
         ),
       ),
       body: TabBarView(
           children: _tabs.map((e) {
-            return KeepAliveWrapper(
-                child: BlogList(
-                    type: e));
+            return KeepAliveWrapper(child: BlogList(type: e));
           }).toList(),
           controller: _tabController),
     );
@@ -86,7 +91,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           ..typeName = e['typeName']
           ..icon = e['icon'];
       }).toList();
-      typeList.insert(0, Type()..typeName = '首页'..id = -1);
+      typeList.insert(
+          0,
+          Type()
+            ..typeName = '首页'
+            ..id = -1);
       setState(() {
         _tabs.clear();
         _tabs.addAll(typeList);

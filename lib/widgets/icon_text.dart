@@ -21,7 +21,7 @@ class IconText extends StatelessWidget {
     return Row(
       children: <Widget>[
         if (icon != null) icon!,
-        label,
+        Padding(padding: const EdgeInsets.fromLTRB(2,0,8,0), child: label),
       ],
     );
   }
