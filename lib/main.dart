@@ -108,7 +108,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   void fetchTypeList() async {
     try {
-      var response = await Dio().get(servicePath['getTypeInfo'] ?? '');
+      var response = await Dio().get(servicePath['getTypeInfo'] ?? '',
+          options: Options(method: "GET"));
       final list = response.data['data'] as List;
       var typeList = list.map((e) {
         return Type()

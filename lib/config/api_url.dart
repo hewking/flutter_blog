@@ -1,9 +1,9 @@
 const apiUrl = 'http://119.29.195.26:7001';
 
-const apiClient = '$apiUrl/default/';
-const apiAdmin = '$apiUrl/admin/';
+const apiClient = '$apiUrl/default';
+const apiAdmin = '$apiUrl/admin';
 
-const articleListUrl = '$apiUrl/getAriticleList';
+const articleListUrl = '$apiClient/getAriticleList';
 
 const servicePath = {
   'getAriticleList': articleListUrl,
